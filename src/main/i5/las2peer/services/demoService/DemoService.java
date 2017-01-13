@@ -28,23 +28,23 @@ public class DemoService extends RESTService {
 	public static class RootResource {
 
 		@GET
-		@Path("local")
-		@Produces(MediaType.TEXT_PLAIN)
-		public Response sayHello() {
-			String returnString = "I am a locally running service!";
-			return Response.ok().entity(returnString).build();
-		}
-
-		@GET
 		@Path("remote")
 		@Produces(MediaType.TEXT_PLAIN)
-		public Response callRemote() throws ServiceNotFoundException, ServiceNotAvailableException,
-				RemoteServiceException {
-			String response = (String) Context.getCurrent().invoke("i5.las2peer.services.remoteService.RemoteService",
-					"sayHello");
+		public Response callRemote() {
 
-			String returnString = "Response from remote service: " + response;
-			return Response.ok().entity(returnString).build();
+			try {
+				String response;
+
+				response = (String) Context.getCurrent().invoke("i5.las2peer.services.remoteService.RemoteService",
+						"sayHello");
+
+				String returnString = "Response from remote service: " + response;
+				return Response.ok().entity(returnString).build();
+			} catch (ServiceNotFoundException | ServiceNotAvailableException | RemoteServiceException e) {
+				String returnString = "Could not locate service in federation!";
+				return Response.ok().entity(returnString).build();
+			}
+
 		}
 
 	}

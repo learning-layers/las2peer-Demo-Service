@@ -87,13 +87,7 @@ public class DemoServiceTest {
 
 	@Test
 	public void testSayHello() {
-		MiniClient c = new MiniClient();
-		c.setAddressPort(HTTP_ADDRESS, HTTP_PORT);
-		c.setLogin(Long.toString(testAgent.getId()), testPass);
 
-		ClientResponse result = c.sendRequest("GET", mainPath + "local", "");
-		assertEquals(200, result.getHttpCode());
-		assertTrue(result.getResponse().trim().contains("locally"));
 	}
 
 	// @Test

@@ -8,17 +8,6 @@ function TemplateServiceClient(endpointUrl) {
 	}
 };
 
-TemplateServiceClient.prototype.getLocal = function(successCallback, errorCallback) {
-	this.sendRequest("GET",
-		"local",
-		"",
-		"text/plain",
-		{},
-		successCallback,
-		errorCallback
-	);
-};
-
 TemplateServiceClient.prototype.getRemote = function(successCallback, errorCallback) {
 	this.sendRequest("GET",
 		"remote",
